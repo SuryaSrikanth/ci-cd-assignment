@@ -1,19 +1,5 @@
-import os
-from flask import Flask, render_template, Blueprint
-import firebase_admin
-from firebase_admin import credentials
+from flask import Flask, render_template, send_from_directory, Blueprint
 from flask_cors import CORS
-
-
-if os.environ.get('ENV', '') in ['dev']:
-    # Use the application default credentials
-    cred = credentials.ApplicationDefault()
-    firebase_admin.initialize_app(cred, {
-        'projectId': os.environ.get('PROJECT_ID', '')
-    })
-else:
-    cred = credentials.Certificate('../../cred.json')
-    firebase_admin.initialize_app(cred)
 
 
 app = Flask(__name__, static_folder='angular/dist/angular')
@@ -22,6 +8,15 @@ CORS(app)
 angular = Blueprint('angular', __name__,
                     template_folder='angular/dist/angular')
 app.register_blueprint(angular)
+
+@app.route('/assets/<path:filename>')
+def custom_static_for_assets(filename):
+    return send_from_directory('angular/dist/angular/assets', filename)
+
+
+@app.route('/<path:filename>')
+def custom_static(filename):
+    return send_from_directory('angular/dist/angular/', filename)
 
 @app.route('/')
 def index():
