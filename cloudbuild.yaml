@@ -45,3 +45,5 @@ steps:
   dir: 'dummy-website'
 images:
 - 'gcr.io/fast-ability-317910/cloudbuildtest:$COMMIT_SHA'
+
+timeout: 1800s
