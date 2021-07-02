@@ -1,0 +1,14 @@
+steps:
+- name: 'node:lts-alpine3.12'
+  entrypoint: 'npm'
+  args: ['install']
+  dir: 'dummy-website/angular'
+- name: 'node:lts-alpine3.12'
+  entrypoint: 'npm'
+  args: ['run','build']
+  dir: 'dummy-website/angular'
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['-q','app', 'deploy', 'app.yaml']
+  dir: 'dummy-website'
+
+  
