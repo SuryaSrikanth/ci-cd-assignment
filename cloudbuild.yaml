@@ -24,21 +24,24 @@ steps:
  # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/fast-ability-317910/cloudbuildtest:$COMMIT_SHA', '.']
+  dir: 'dummy-website'
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/fast-ability-317910/cloudbuildtest:$COMMIT_SHA']
+  dir: 'dummy-website'
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args:
   - 'run'
   - 'deploy'
-  - 'SERVICE-NAME'
+  - 'cloudbuildtest'
   - '--image'
   - 'gcr.io/fast-ability-317910/cloudbuildtest:$COMMIT_SHA'
   - '--region'
   - 'asia-south1'
   - '--platform'
   - 'managed'
+  dir: 'dummy-website'
 images:
 - 'gcr.io/fast-ability-317910/cloudbuildtest:$COMMIT_SHA'
