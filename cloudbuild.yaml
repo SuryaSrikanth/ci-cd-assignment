@@ -20,7 +20,14 @@ steps:
   - --trigger-http
   - --runtime=python37
   dir: 'dummy-cloudfunction'
-
+- name: 'node:lts-alpine3.12'
+  entrypoint: 'npm'
+  args: ['install']
+  dir: 'dummy-cloudrun/angular'
+- name: 'node:lts-alpine3.12'
+  entrypoint: 'npm'
+  args: ['run','build']
+  dir: 'dummy-cloudrun/angular'  
  # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/fast-ability-317910/cloudbuildtest:$COMMIT_SHA', '.']
