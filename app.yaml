@@ -1,5 +1,6 @@
 runtime: python38
 env: standard
+service: website
 entrypoint: gunicorn -t 120 -b :$PORT -w 4 main:app
 env_variables:
   ENV: dev
