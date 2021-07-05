@@ -1,7 +1,0 @@
-.git
-.gitignore
-
-# Python pycache:
-__pycache__/
-/setup.cfg
-angular/node_modules
