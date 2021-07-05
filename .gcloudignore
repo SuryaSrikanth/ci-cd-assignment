@@ -4,4 +4,4 @@
 # Python pycache:
 __pycache__/
 /setup.cfg
-dummy-website/angular/node_modules
+angular/node_modules

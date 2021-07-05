@@ -3,3 +3,5 @@ dummy-website/angular/node_modules
 dummy-website/angular/dist
 dummy-cloudrun/angular/node_modules
 dummy-cloudrun/angular/dist
+angular/node_modules
+angular/dist
