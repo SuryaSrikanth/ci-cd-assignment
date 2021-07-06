@@ -1,18 +1,30 @@
 steps:
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - functions
+  - deploy
+  - practice-cloudbuild
+  - --region=asia-south1
+  - --source=.
+  - --trigger-http
+  - --runtime=python37
+  dir: 'cloudfunction'
 - name: 'node:lts-alpine3.12'
   entrypoint: 'npm'
   args: ['install']
-  dir: 'angular'
+  dir: 'cloudrun/angular'
 - name: 'node:lts-alpine3.12'
   entrypoint: 'npm'
   args: ['run','build']
-  dir: 'angular'  
+  dir: 'cloudrun/angular'  
  # Build the container image
 - name: 'gcr.io/cloud-builders/docker'
   args: ['build', '-t', 'gcr.io/cloudbuild-training/cloudbuildtest:$COMMIT_SHA', '.']
+  dir: 'cloudrun'
 # Push the container image to Container Registry
 - name: 'gcr.io/cloud-builders/docker'
   args: ['push', 'gcr.io/cloudbuild-training/cloudbuildtest:$COMMIT_SHA']
+  dir: 'cloudrun'
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
@@ -26,5 +38,6 @@ steps:
   - 'asia-south1'
   - '--platform'
   - 'managed'
+  dir: 'cloudrun'
 images:
 - 'gcr.io/cloudbuild-training/cloudbuildtest:$COMMIT_SHA'
