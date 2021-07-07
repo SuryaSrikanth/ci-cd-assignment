@@ -1,14 +1,14 @@
 steps:
-# - name: 'gcr.io/cloud-builders/gcloud'
-#   args:
-#   - functions
-#   - deploy
-#   - hello_world
-#   - --region=asia-south1
-#   - --source=.
-#   - --trigger-http
-#   - --runtime=python37
-#   dir: 'cloudfunction'
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+  - functions
+  - deploy
+  - hello_world
+  - --region=asia-south1
+  - --source=.
+  - --trigger-http
+  - --runtime=python37
+  dir: 'cloudfunction'
 - name: 'node:lts-alpine3.12'
   entrypoint: 'npm'
   args: ['install']
