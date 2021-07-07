@@ -1,14 +1,14 @@
 steps:
-- name: 'gcr.io/cloud-builders/gcloud'
-  args:
-  - functions
-  - deploy
-  - hello_world
-  - --region=asia-south1
-  - --source=.
-  - --trigger-http
-  - --runtime=python37
-  dir: 'cloudfunction'
+# - name: 'gcr.io/cloud-builders/gcloud'
+#   args:
+#   - functions
+#   - deploy
+#   - hello_world
+#   - --region=asia-south1
+#   - --source=.
+#   - --trigger-http
+#   - --runtime=python37
+#   dir: 'cloudfunction'
 - name: 'node:lts-alpine3.12'
   entrypoint: 'npm'
   args: ['install']
@@ -18,7 +18,7 @@ steps:
   args: ['run','build']
   dir: 'cloudrun/angular'  
  # Build the container image
-- name: 'gcr.io/cloud-builders/gcloud'
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args: ['builds', 'submit', '-t', 'gcr.io/cloudbuild-training/cloudbuildtest:$COMMIT_SHA']
   dir: 'cloudrun'
@@ -50,6 +50,7 @@ steps:
   args: ['run','build']
   dir: 'website/angular'
 - name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'gcloud'
   args: ['-q','app', 'deploy', 'app.yaml']
   dir: 'website'
 images:
