@@ -3,7 +3,7 @@ steps:
   args:
   - functions
   - deploy
-  - practice-cloudbuild
+  - hello_world
   - --region=asia-south1
   - --source=.
   - --trigger-http
