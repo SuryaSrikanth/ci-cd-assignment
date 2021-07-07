@@ -52,3 +52,5 @@ steps:
   dir: 'website'
 images:
 - 'gcr.io/cloudbuild-training/cloudbuildtest:$COMMIT_SHA'
+
+timeout: 1200s
