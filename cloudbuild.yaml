@@ -18,12 +18,12 @@ steps:
   args: ['run','build']
   dir: 'cloudrun/angular'  
  # Build the container image
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/cloudbuild-training/cloudbuildtest:$COMMIT_SHA', '.']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['builds', 'submit', '-t', 'gcr.io/cloudbuild-training/cloudbuildtest:$COMMIT_SHA', '.']
   dir: 'cloudrun'
 # Push the container image to Container Registry
-- name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/cloudbuild-training/cloudbuildtest:$COMMIT_SHA']
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['run', 'deploy', '--image', 'gcr.io/cloudbuild-training/cloudbuildtest:$COMMIT_SHA']
   dir: 'cloudrun'
 # Deploy container image to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
