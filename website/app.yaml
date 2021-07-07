@@ -1,4 +1,4 @@
 runtime: python38
 env: standard
 entrypoint: gunicorn -t 120 -b :$PORT -w 4 main:app
-service: cloudbuild-preactice
+service: cloudbuild-preactice-2
